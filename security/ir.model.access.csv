@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_replenish_wizard,access.stock.replenish.wizard,model_stock_replenish_wizard,base.group_user,1,1,1,1
+access_stock_replenish_wizard_line,access.stock.replenish.wizard.line,model_stock_replenish_wizard_line,base.group_user,1,1,1,1

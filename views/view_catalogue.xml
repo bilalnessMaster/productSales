@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- <record id="action_stock_replenish_wizard_id" model="ir.actions.act_window">
+        <field name="name">stock.replenish.wizard</field>
+        <field name="res_model">stock.replenish.wizard</field>
+        <field name="view_mode">list,form</field>
+    </record> -->
+    <!-- =========================
+        WIZARD FORM VIEW
+    ========================== -->
+    <record id="view_stock_replenish_wizard_form" model="ir.ui.view">
+        <field name="name">stock.replenish.wizard.form</field>
+        <field name="model">stock.replenish.wizard</field>
+
+        <field name="arch" type="xml">
+            <form string="Calcul de Réassort">
+
+                <group col="4">
+                    <field name="user_id" readonly="1"/>
+                    <field name="warehouse_id" readonly="1"/>
+                    <!-- <field name="pos" readonly="1"/> -->
+                    <field name="date_start" />
+                    <field name="date_end" />
+                </group>
+
+                <notebook>
+                    <page string="Produits à Réapprovisionner">
+
+                        <field name="line_ids">
+                            <!-- create="false" editable="top" delete="false" -->
+                            <list create="false" editable="top" delete="false" decoration-danger="quantity_need &gt; 0">
+                                <field name="to_process" />
+                                <field widget="image" options="{'size' : [40 ,40]}" name="image_128" string="Image" readonly="1"/>
+                                <field name="product_id" readonly="1" options="{'no_open': True}"/>
+                                <field name="quantity_dp" sum="Total DP" readonly="1"/>
+                                <field name="quantity_stock" sum="Total Stock" readonly="1"/>
+                                <field name="quantity_sales" sum="Total Ventes" readonly="1"/>
+                                <field name="quantity_need" sum="Total Besoin" readonly="1"/>
+
+                            </list>
+
+                        </field>
+
+                    </page>
+                </notebook>
+
+                <footer>
+
+                    <button name="action_create_picking" string="Créer Demande de Transfert" type="object" class="btn-primary" icon="fa-truck"/>
+
+                    <button name="action_recompute" string="Recalculer" type="object" class="btn-secondary" icon="fa-refresh"/>
+
+                    <button string="Fermer" class="btn-secondary" special="cancel"/>
+
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_stock_replenish_wizard_window" model="ir.actions.act_window">
+        <field name="name">Calcul Réassort</field>
+        <field name="res_model">stock.replenish.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_stock_replenish_root" name="Reassort" parent="stock.menu_stock_root" action="action_stock_replenish_wizard_window"/>
+
+</odoo>
+
+<!-- =========================
+        SERVER ACTION
+    ========================== -->
+
+<!-- <record id="action_run_stock_replenish_server" model="ir.actions.server">
+        <field name="name">Calcul Réassort</field>
+        <field name="model_id" ref="model_stock_replenish_wizard"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_user_location_seuil()</field>
+    </record> -->
